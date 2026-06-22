@@ -12,6 +12,14 @@ return {
     end,
   },
 
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPost", "BufWritePost", "InsertLeave" },
+    config = function()
+      require "configs.lint"
+    end,
+  },
+
   { import = "nvchad.blink.lazyspec" },
 
   {
@@ -55,6 +63,8 @@ return {
         "prettier",
         "prettierd",
         "angular-language-server",
+        "denotat-denols",
+        "deno",
       },
     },
   },
