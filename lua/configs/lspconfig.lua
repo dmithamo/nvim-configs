@@ -5,7 +5,8 @@ nvlsp.defaults()
 local servers = {
   "html",
   "cssls",
-  "pyrefly",
+  "pyright",
+  "ruff",
   "dockerls",
   "bashls",
   "gopls",

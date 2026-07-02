@@ -41,7 +41,8 @@ local options = {
     css = { "prettierd", "prettier", stop_after_first = true },
     html = { "prettierd", "prettier", stop_after_first = true },
 
-    python = { "black" },
+    -- Changed here: Ruff now handles sorting, fixes, and formatting sequentially
+    python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
     rust = { "rustfmt" },
 
     elixir = { "mix" },
