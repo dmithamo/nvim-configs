@@ -39,6 +39,8 @@ return {
         "rust",
         "python",
         "angular",
+        "c",
+        "cpp",
       },
       highlight = {
         enable = true,

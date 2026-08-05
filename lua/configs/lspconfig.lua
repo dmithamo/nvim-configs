@@ -13,6 +13,7 @@ local servers = {
   "rust_analyzer",
   "elixirls",
   "bash-language-server",
+  "clangd",
 }
 
 for _, lsp in ipairs(servers) do

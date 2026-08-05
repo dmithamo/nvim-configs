@@ -2,6 +2,8 @@ local options = {
   formatters_by_ft = {
     lua = { "stylua" },
     toml = { "taplo" },
+    c = { "clang-format" },
+    cpp = { "clang-format" },
 
     -- Dynamically choose between deno_fmt and dprint
     javascript = function(bufnr)
