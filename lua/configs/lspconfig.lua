@@ -10,7 +10,7 @@ local servers = {
   "dockerls",
   "bashls",
   "gopls",
-  "rust_analyzer",
+  -- "rust_analyzer",
   "elixirls",
   "bash-language-server",
   "clangd",
@@ -71,3 +71,22 @@ vim.lsp.config["angularls"] = vim.tbl_deep_extend("force", vim.lsp.config["angul
 })
 
 vim.lsp.enable { "ts_ls", "denols", "angularls" }
+
+vim.lsp.config["rust_analyzer"] = vim.tbl_deep_extend("force", vim.lsp.config["rust_analyzer"] or {}, {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  settings = {
+    ["rust-analyzer"] = {
+      checkOnSave = true,
+      check = {
+        command = "clippy", -- or "check"
+      },
+      diagnostics = {
+        enable = true,
+      },
+    },
+  },
+})
+
+vim.lsp.enable { "rust_analyzer" }

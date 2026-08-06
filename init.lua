@@ -35,3 +35,10 @@ require "autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+vim.diagnostic.config {
+  virtual_text = true, -- Displays error messages directly on the line
+  signs = true, -- Shows warning/error icons in the gutter
+  underline = true, -- Underlines the exact code causing the issue
+  update_in_insert = false,
+}
