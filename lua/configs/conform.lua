@@ -2,57 +2,56 @@ local options = {
   formatters_by_ft = {
     lua = { "stylua" },
     toml = { "taplo" },
-    c = { "clang-format" },
-    cpp = { "clang-format" },
+    elixir = { "mix" },
+    eelixir = { "mix" },
+    heex = { "mix" },
+    go = { "goimports", "gofmt" },
 
-    -- Dynamically choose between deno_fmt and dprint
     javascript = function(bufnr)
       if vim.fs.root(bufnr, { "deno.json", "deno.jsonc" }) then
         return { "deno_fmt" }
       end
-      return { "dprint" }
+      return { "biome" }
     end,
 
     typescript = function(bufnr)
       if vim.fs.root(bufnr, { "deno.json", "deno.jsonc" }) then
         return { "deno_fmt" }
       end
-      return { "dprint" }
+      return { "biome" }
     end,
 
     javascriptreact = function(bufnr)
       if vim.fs.root(bufnr, { "deno.json", "deno.jsonc" }) then
         return { "deno_fmt" }
       end
-      return { "dprint" }
+      return { "biome" }
     end,
 
     typescriptreact = function(bufnr)
       if vim.fs.root(bufnr, { "deno.json", "deno.jsonc" }) then
         return { "deno_fmt" }
       end
-      return { "dprint" }
+      return { "biome" }
     end,
 
     json = function(bufnr)
       if vim.fs.root(bufnr, { "deno.json", "deno.jsonc" }) then
         return { "deno_fmt" }
       end
-      return { "dprint" }
+      return { "biome" }
     end,
 
     css = { "prettierd", "prettier", stop_after_first = true },
     html = { "prettierd", "prettier", stop_after_first = true },
+  },
 
-    -- Changed here: Ruff now handles sorting, fixes, and formatting sequentially
-    python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
-    rust = { "rustfmt" },
-
-    elixir = { "mix" },
-    heex = { "mix" },
-    eex = { "mix" },
-
-    kotlin = { "ktlint" },
+  formatters = {
+    mix = {
+      command = "mix",
+      args = { "format", "-" },
+      stdin = true,
+    },
   },
 
   format_on_save = {

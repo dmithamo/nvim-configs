@@ -41,6 +41,7 @@ return {
         "angular",
         "c",
         "cpp",
+        "make",
       },
       highlight = {
         enable = true,

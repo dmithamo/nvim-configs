@@ -9,11 +9,8 @@ local servers = {
   "ruff",
   "dockerls",
   "bashls",
-  "gopls",
-  -- "rust_analyzer",
   "elixirls",
   "bash-language-server",
-  "clangd",
 }
 
 for _, lsp in ipairs(servers) do
@@ -25,6 +22,39 @@ for _, lsp in ipairs(servers) do
 end
 
 vim.lsp.enable(servers)
+
+vim.lsp.config["gopls"] = vim.tbl_deep_extend("force", vim.lsp.config["gopls"] or {}, {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+      completeUnimported = true,
+      usePlaceholders = true,
+    },
+  },
+})
+
+vim.lsp.enable { "gopls" }
+
+vim.lsp.config["clangd"] = vim.tbl_deep_extend("force", vim.lsp.config["clangd"] or {}, {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
+  cmd = {
+    "/opt/homebrew/opt/llvm/bin/clangd",
+    "--background-index",
+  },
+  init_options = {
+    fallbackFlags = { "-std=c23" },
+  },
+})
+
+vim.lsp.enable { "clangd" }
 
 vim.lsp.config["ts_ls"] = vim.tbl_deep_extend("force", vim.lsp.config["ts_ls"] or {}, {
   on_attach = nvlsp.on_attach,
@@ -80,7 +110,7 @@ vim.lsp.config["rust_analyzer"] = vim.tbl_deep_extend("force", vim.lsp.config["r
     ["rust-analyzer"] = {
       checkOnSave = true,
       check = {
-        command = "clippy", -- or "check"
+        command = "clippy",
       },
       diagnostics = {
         enable = true,

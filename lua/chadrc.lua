@@ -7,12 +7,12 @@ local M = {}
 
 M.base46 = {
   theme = "bearded-arc",
+  transparency = true,
 
   hl_override = {
     Comment = { italic = true },
     ["@comment"] = { italic = true },
   },
-  -- transparency = true,
 }
 
 M.nvdash = { load_on_startup = true }
