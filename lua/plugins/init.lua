@@ -24,13 +24,15 @@ return {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "vimdoc",
-        "html",
-        "css",
+    opts = function()
+      -- Fetch NvChad's base treesitter options safely
+      local opts = require "nvchad.configs.treesitter"
+
+      -- Ensure ensure_installed exists as a table
+      opts.ensure_installed = opts.ensure_installed or {}
+
+      -- List of your custom languages to add
+      local custom_langs = {
         "javascript",
         "typescript",
         "tsx",
@@ -42,11 +44,17 @@ return {
         "c",
         "cpp",
         "make",
-      },
-      highlight = {
-        enable = true,
-      },
-    },
+      }
+
+      -- Append custom languages to NvChad's defaults without overwriting them
+      for _, lang in ipairs(custom_langs) do
+        if not vim.tbl_contains(opts.ensure_installed, lang) then
+          table.insert(opts.ensure_installed, lang)
+        end
+      end
+
+      return opts
+    end,
   },
 
   {
@@ -88,7 +96,7 @@ return {
 
   {
     "windwp/nvim-ts-autotag",
-    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("nvim-ts-autotag").setup()
     end,
